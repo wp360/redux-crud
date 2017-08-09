@@ -25,8 +25,16 @@ npm config get registry
 3.provider
 ```
 `npm install --save redux-devtools-extension`
+
+`npm install --save react-router@4.0.0`
+>`注：这里先安装的是4.0.0，不是最新4.1.2，最新版的话在用法上有不少问题（例如 Match），后期等研究后再更新。但是BrowserRouter无法使用。由于Link、BrowserRouter等都是在react-router-dom里的。但如果另外安装react-router-dom，又会出现不少问题。最后折中一下，安装了一个4.0.0-alpha版就可以了。这块坑挺多，先完成项目后期再做版本更新的测试调整。`
+
+## 新版安装
 `npm install --save react-router react-router-dom`
 ### 注：最新版react-router、react-router-dom都需安装，否则：'react-router' does not contain an export named 'Link'.
 ## 如果安装react-router-dom v4会有不少问题，具体操作参考
 [https://reacttraining.com/react-router](https://reacttraining.com/react-router)
+
+[初探 React Router 4.0](http://blog.csdn.net/sinat_17775997/article/details/69218382)
+
 [http://www.cnblogs.com/dudeyouth/p/6617059.html](http://www.cnblogs.com/dudeyouth/p/6617059.html)
