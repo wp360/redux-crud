@@ -10,5 +10,5 @@ mongodb.MongoClient.connect(dbUrl,function(err,db){
             res.json({ movies });
         });
     });
-    app.listen(8080,() => console.log('服务开启，运行端口8080'));
+    app.listen(5000,() => console.log('服务开启，运行端口5000'));
 });

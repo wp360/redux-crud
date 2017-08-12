@@ -19,8 +19,8 @@ class MoviesPage extends React.Component{
 }
 //React组件属性部类（propTypes）校验
 MoviesPage.propTypes = {
-    movies:PropTypes.array.isRequired,
-    fetchMovies:PropTypes.func.isRequired
+    movies: PropTypes.array.isRequired,
+    fetchMovies: PropTypes.func.isRequired
 }
 
 //mapStateToProps是一个函数。它的作用就是像它的名字那样，建立一个从（外部的）state对象到（UI 组件的）props对象的映射关系。
@@ -31,4 +31,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,fetchMovies)(MoviesPage);
+export default connect(mapStateToProps,{fetchMovies})(MoviesPage);
