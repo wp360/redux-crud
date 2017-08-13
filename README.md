@@ -64,6 +64,10 @@ WriteResult({ "nInserted" : 1 })
 > exit
 bye
 ```
+## Semantic UI
+[链接](http://www.semantic-ui.cn/)
+
+`npm install --save classnames@2.2.5`
 
 >`心得：有很多时候，很多问题，一时间你不明白，但当你看的多了。忽然有一天，你会发现：哦，原来是这样。此外，一本书，一个教程不可能包罗万象，只有当你有了一定的积累，才可能触类旁通。这对于初学者尤其如此。`
 

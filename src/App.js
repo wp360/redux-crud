@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+//import logo from './logo.svg';
 import {Link,Match} from 'react-router';
 import MoviesPage from './MoviesPage';
+import MoviesForm from './MoviesForm';
+
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+      <div className="ui container">
+        <div className="ui three item menu">
+          <Link className="item" activeClassName="active" activeOnlyWhenExact to="/">首页</Link>
+          <Link className="item" activeClassName="active" activeOnlyWhenExact to="/movies">电影</Link>
+          <Link className="item" activeClassName="active" activeOnlyWhenExact to="/movies/new">新增</Link>
         </div>
-        <p className="App-intro">
-            <Link to="movies">Movies</Link>
-        </p>
-        <Match pattern="/movies" component={MoviesPage} />
+        <Match exactly pattern="/movies" component={MoviesPage} />
+        <Match pattern="/movies/new" component={MoviesForm} />
       </div>
     );
   }
