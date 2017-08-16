@@ -1,5 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
+import {connect} from 'react-redux';
+import {saveMovie} from './actions';
 
 class MoviesForm extends React.Component{
     constructor(){
@@ -7,7 +9,8 @@ class MoviesForm extends React.Component{
         this.state = {
         title: '',
         cover: '',
-        errors: {}
+        errors: {},
+        loading: false
         };
     }
 
@@ -31,12 +34,22 @@ class MoviesForm extends React.Component{
         if(this.state.title === '') errors.title = "请填入电影片名";
         if(this.state.cover === '') errors.cover = "请填入电影海报图片地址";
         this.setState({ errors });
+        const isValid = Object.keys(errors).length === 0;
+        if(isValid){
+            const {title,cover} = this.state;
+            this.setState({loading:true});
+            this.props.saveMovie({title,cover}).then(
+                ()=>{},
+                (err)=>err.response.json().then(({errors})=>this.setState({errors,loading:false}))
+            );
+        }
     };
     
     render(){
         return(
-            <form className="ui form" onSubmit={this.handleSumbit}>
+            <form className={classnames('ui','form',{loading:this.state.loading})} onSubmit={this.handleSumbit}>
                 <h1>添加新电影</h1>
+                {!!this.state.errors.global && <div className="ui negative message"><p>{this.state.errors.global}</p></div>}
                 <div className={classnames('field',{error:!!this.state.errors.title})}>
                     <label htmlFor="title">标题</label>
                     <input id="title" name="title" value={this.state.title} onChange={this.handleChange} />
@@ -58,4 +71,4 @@ class MoviesForm extends React.Component{
     }
 }
 
-export default MoviesForm;
+export default connect(null,{saveMovie})(MoviesForm);
