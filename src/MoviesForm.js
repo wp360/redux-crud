@@ -1,6 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router';
 import {saveMovie} from './actions';
 
 class MoviesForm extends React.Component{
@@ -10,7 +11,8 @@ class MoviesForm extends React.Component{
         title: '',
         cover: '',
         errors: {},
-        loading: false
+        loading: false,
+        done:false
         };
     }
 
@@ -35,18 +37,19 @@ class MoviesForm extends React.Component{
         if(this.state.cover === '') errors.cover = "请填入电影海报图片地址";
         this.setState({ errors });
         const isValid = Object.keys(errors).length === 0;
+        //isValid true
         if(isValid){
             const {title,cover} = this.state;
             this.setState({loading:true});
             this.props.saveMovie({title,cover}).then(
-                ()=>{},
+                ()=>{this.setState({done:true})},
                 (err)=>err.response.json().then(({errors})=>this.setState({errors,loading:false}))
             );
         }
     };
     
     render(){
-        return(
+        const form = (
             <form className={classnames('ui','form',{loading:this.state.loading})} onSubmit={this.handleSumbit}>
                 <h1>添加新电影</h1>
                 {!!this.state.errors.global && <div className="ui negative message"><p>{this.state.errors.global}</p></div>}
@@ -67,6 +70,11 @@ class MoviesForm extends React.Component{
                     <button className="ui primary button">保存</button>
                 </div>
             </form>
+        );
+        return(
+            <div>
+                {this.state.done?<Redirect to="/movies" />:form}
+            </div>
         );
     }
 }

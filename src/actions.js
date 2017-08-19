@@ -19,7 +19,7 @@ export function setMovies(movies){
 
 export function saveMovie(data){
     return dispatch => {
-        return fetch('./api/movies',{
+        return fetch('/api/movies',{
             method:'post',
             body:JSON.stringify(data),
             headers:{
