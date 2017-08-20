@@ -1,6 +1,8 @@
 export const SET_MOVIES = 'SET_MOVIES';
 export const ADD_MOVIE = 'ADD_MOVIE';
 export const MOVIE_FETCHED = 'MOVIE_FETCHED';
+export const MOVIE_UPDATED = 'MOVIE_UPDATED';
+export const MOVIE_DELETED = 'MOVIE_DELETED';
 
 function handleResponse(response){
     if(response.ok){
@@ -33,6 +35,20 @@ export function movieFetched(movie){
     };
 }
 
+export function movieUpdated(movie){
+    return{
+        type:MOVIE_UPDATED,
+        movie
+    };
+}
+
+export function movieDeleted(movieId){
+    return{
+        type:MOVIE_DELETED,
+        movieId
+    };
+}
+
 export function saveMovie(data){
     return dispatch => {
         return fetch('/api/movies',{
@@ -43,6 +59,31 @@ export function saveMovie(data){
             }
         }).then(handleResponse)
         .then(data => dispatch(addMovie(data.movie)));
+    };
+}
+
+export function updateMovie(data){
+    return dispatch => {
+        return fetch(`/api/movies/${data._id}`,{
+            method:'put',
+            body:JSON.stringify(data),
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }).then(handleResponse)
+        .then(data => dispatch(movieUpdated(data.movie)));
+    };
+}
+
+export function deleteMovie(id){
+    return dispatch => {
+        return fetch(`/api/movies/${id}`,{
+            method:'delete',
+            headers:{
+                "Content-Type":"application/json"
+            }
+        }).then(handleResponse)
+        .then(data => dispatch(movieDeleted(id)));
     };
 }
 

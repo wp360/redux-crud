@@ -75,6 +75,47 @@ bye
 
 ## 编辑
 >`1.Search Redux Store 2.Fetch Data form Server 3.No id?Create new one then.`
+```javascript
+首先，表单页面添加更新方法updateMovie;然后action.js里添加对应方法;接着是reducer;最后服务端server.js添加对应的数据更新方法。
+代码如下：
+    app.put('/api/movies/:_id',(req,res)=>{
+        const{errors,isValid} = validate(req.body);
+        if(isValid){
+            const {title,cover} = req.body;
+            db.collection('movies').findOneAndUpdate(
+                {_id:new mongodb.ObjectID(req.params._id)},
+                {$set:{title,cover}},
+                (err,result)=>{
+                    if(err){
+                        res.status(500).json({
+                            errors:{global:err}
+                        });
+                        return;
+                    }
+                    res.json({movie:result.value});
+                }
+            );
+        }else{
+            res.status(400).json({errors});
+        }
+    });
+```
+## 删除
+```javascript
+首先，页面里添加删除方法;然后action.js里添加对应方法;接着是reducer;最后服务端server.js添加对应的数据更新方法。
+代码如下：
+    app.get('/api/movies/:_id',(req,res)=>{
+        db.collection('movies').findOne({_id:new mongodb.ObjectId(req.params._id)},(err,r)=>{
+            if(err){
+                res.status(500).json({
+                    errors:{global:err}
+                });
+                return;
+            }
+            res.json({});
+        });
+    });
+```
 
 >`心得：有很多时候，很多问题，一时间你不明白，但当你看的多了。忽然有一天，你会发现：哦，原来是这样。此外，一本书，一个教程不可能包罗万象，只有当你有了一定的积累，才可能触类旁通。这对于初学者尤其如此。`
 

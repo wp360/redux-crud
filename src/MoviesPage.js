@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import MoviesList from './MoviesList';
-import {fetchMovies} from './actions';
+import {fetchMovies,deleteMovie} from './actions';
 
 class MoviesPage extends React.Component{
     componentDidMount(){
@@ -12,7 +12,7 @@ class MoviesPage extends React.Component{
         return(
             <div>
                 <h1>电影列表</h1>
-                <MoviesList movies={this.props.movies} />
+                <MoviesList movies={this.props.movies} deleteMovie={this.props.deleteMovie} />
             </div>
         );
     }
@@ -20,7 +20,8 @@ class MoviesPage extends React.Component{
 //React组件属性部类（propTypes）校验
 MoviesPage.propTypes = {
     movies: PropTypes.array.isRequired,
-    fetchMovies: PropTypes.func.isRequired
+    fetchMovies: PropTypes.func.isRequired,
+    deleteMovie: PropTypes.func.isRequired
 }
 
 //mapStateToProps是一个函数。它的作用就是像它的名字那样，建立一个从（外部的）state对象到（UI 组件的）props对象的映射关系。
@@ -31,4 +32,4 @@ function mapStateToProps(state){
     }
 }
 
-export default connect(mapStateToProps,{fetchMovies})(MoviesPage);
+export default connect(mapStateToProps,{fetchMovies,deleteMovie})(MoviesPage);

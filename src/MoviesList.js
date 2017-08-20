@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from './MovieCard';
 
-export default function MoviesList({movies}) {
+export default function MoviesList({movies,deleteMovie}) {
     const emptyMessage = (
         <p>您的收藏夹里还没有相关电影</p>
     );
     const moviesList = (
         <div className="ui four cards">
-            { movies.map(movie => <MovieCard movie={movie} key={movie._id} />) }
+            { movies.map(movie => <MovieCard movie={movie} key={movie._id} deleteMovie={deleteMovie} />) }
         </div>
     );
     return (
