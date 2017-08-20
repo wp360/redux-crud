@@ -12,7 +12,7 @@ class MoviesForm extends React.Component{
         cover: '',
         errors: {},
         loading: false,
-        done:false
+        done: false
         };
     }
 
@@ -73,7 +73,7 @@ class MoviesForm extends React.Component{
         );
         return(
             <div>
-                {this.state.done?<Redirect to="/movies" />:form}
+                { this.state.done ? <Redirect to="/movies" /> : form }
             </div>
         );
     }
