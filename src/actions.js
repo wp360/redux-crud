@@ -1,5 +1,6 @@
 export const SET_MOVIES = 'SET_MOVIES';
 export const ADD_MOVIE = 'ADD_MOVIE';
+export const MOVIE_FETCHED = 'MOVIE_FETCHED';
 
 function handleResponse(response){
     if(response.ok){
@@ -24,6 +25,14 @@ export function addMovie(movie){
         movie
     };
 }
+
+export function movieFetched(movie){
+    return{
+        type:MOVIE_FETCHED,
+        movie
+    };
+}
+
 export function saveMovie(data){
     return dispatch => {
         return fetch('/api/movies',{
@@ -42,5 +51,13 @@ export function fetchMovies() {
         fetch('/api/movies')
         .then(res => res.json())
         .then(data => dispatch(setMovies(data.movies)));
+    };
+}
+
+export function fetchMovie(id) {
+    return dispatch => {
+        fetch(`/api/movies/${id}`)
+        .then(res => res.json())
+        .then(data => dispatch(movieFetched(data.movie)));
     };
 }

@@ -2,18 +2,33 @@ import React from 'react';
 import classnames from 'classnames';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router';
-import {saveMovie} from './actions';
+import {saveMovie,fetchMovie} from './actions';
 
 class MoviesForm extends React.Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state = {
-        title: '',
-        cover: '',
+        _id: this.props.movie ? this.props.movie._id : null,
+        title: this.props.movie ? this.props.movie.title : '',
+        cover: this.props.movie ? this.props.movie.cover : '',
         errors: {},
         loading: false,
         done: false
         };
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({
+            _id: nextProps.movie._id,
+            title: nextProps.movie.title,
+            cover: nextProps.movie.cover
+        })
+    }
+
+    componentDidMount = () =>{
+        if(this.props.params._id){
+            this.props.fetchMovie(this.props.params._id);
+        }
     }
 
     handleChange = (e) => {
@@ -79,4 +94,13 @@ class MoviesForm extends React.Component{
     }
 }
 
-export default connect(null,{saveMovie})(MoviesForm);
+function mapStateToProps(state,props){
+    if(props.params._id){
+        return{
+            movie:state.movies.find(item => item.id === props.params._id)
+        }
+    }
+    return {movie:null};
+}
+
+export default connect(mapStateToProps,{saveMovie,fetchMovie})(MoviesForm);

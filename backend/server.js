@@ -35,6 +35,13 @@ mongodb.MongoClient.connect(dbUrl,function(err,db){
             res.status(400).json({errors});
         }
     });
+
+    app.get('/api/movies/:_id',(req,res)=>{
+        db.collection('movies').findOne({_id:new mongodb.ObjectID(req.params._id)},(err,movie)=>{
+            res.json({movie});
+        });
+    });
+
     app.use((req,res)=>{
         res.status(404).json({
             errors:{

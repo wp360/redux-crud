@@ -17,6 +17,7 @@ class App extends Component {
         </div>
         <Match exactly pattern="/movies" component={MoviesPage} />
         <Match pattern="/movies/new" component={MoviesForm} />
+        <Match pattern="/movie/:_id" component={MoviesForm} />
       </div>
     );
   }

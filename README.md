@@ -73,6 +73,9 @@ bye
 
 `npm install --save body-parser@1.15.2`
 
+## 编辑
+>`1.Search Redux Store 2.Fetch Data form Server 3.No id?Create new one then.`
+
 >`心得：有很多时候，很多问题，一时间你不明白，但当你看的多了。忽然有一天，你会发现：哦，原来是这样。此外，一本书，一个教程不可能包罗万象，只有当你有了一定的积累，才可能触类旁通。这对于初学者尤其如此。`
 
 [参考Build a CRUD App Using React, Redux and FeathersJS](https://www.sitepoint.com/crud-app-react-redux-feathersjs/)
