@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {Redirect} from 'react-router';
+import {Redirect} from 'react-router-dom';
 import {saveMovie,fetchMovie,updateMovie} from './actions';
 import MoviesForm from './MoviesForm';
 
@@ -13,8 +13,9 @@ class MoviesFormPage extends React.Component{
     }
     
     componentDidMount = () => {
-        if (this.props.params._id) {
-            this.props.fetchMovie(this.props.params._id);
+        const {match} = this.props;
+        if (match.params._id) {
+            this.props.fetchMovie(match.params._id);
         }
     }
 
@@ -44,9 +45,10 @@ class MoviesFormPage extends React.Component{
 }
 
 function mapStateToProps(state,props){
-    if(props.params._id){
+    const {match} = props;
+    if(match.params._id){
         return{
-            movie: state.movies.find(item => item._id === props.params._id)
+            movie: state.movies.find(item => item._id === match.params._id)
         }
     }
     return {movie:null};

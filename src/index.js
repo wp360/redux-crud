@@ -8,7 +8,7 @@ import App from './App';
 import rootReducer from './rootReducer';
 import registerServiceWorker from './registerServiceWorker';
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { BrowserRouter } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
 
 const store = createStore(
     rootReducer,

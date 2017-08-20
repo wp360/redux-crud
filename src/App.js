@@ -1,23 +1,28 @@
 import React, { Component } from 'react';
 //import logo from './logo.svg';
-import {Link,Match} from 'react-router';
+import {Link,Route} from 'react-router-dom';
 import MoviesPage from './MoviesPage';
 import MoviesFormPage from './MoviesFormPage';
-
 import './App.css';
+
+const ActiveLink = ({ label,to,activeOnlyWhenExact }) => (
+  <Route path={to} exact={activeOnlyWhenExact} children={({match}) => (
+     <Link className={match ? 'active item' : 'item'} to={to}>{label}</Link>
+  )} />
+);
 
 class App extends Component {
   render() {
     return (
       <div className="ui container">
         <div className="ui three item menu">
-          <Link className="item" activeClassName="active" activeOnlyWhenExact to="/">首页</Link>
-          <Link className="item" activeClassName="active" activeOnlyWhenExact to="/movies">电影</Link>
-          <Link className="item" activeClassName="active" activeOnlyWhenExact to="/movies/new">新增</Link>
+          <ActiveLink activeOnlyWhenExact to="/" label="首页" />
+          <ActiveLink activeOnlyWhenExact to="/movies" label="电影" />
+          <ActiveLink activeOnlyWhenExact to="/movies/new" label="新增" />
         </div>
-        <Match exactly pattern="/movies" component={MoviesPage} />
-        <Match pattern="/movies/new" component={MoviesFormPage} />
-        <Match pattern="/movie/:_id" component={MoviesFormPage} />
+        <Route exact path="/movies" component={MoviesPage} />
+        <Route path="/movies/new" component={MoviesFormPage} />
+        <Route path="/movie/:_id" component={MoviesFormPage} />
       </div>
     );
   }

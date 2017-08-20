@@ -29,11 +29,11 @@ npm config get registry
 `npm install --save react-router@4.0.0`
 >`注：这里先安装的是4.0.0，不是最新4.1.2，最新版的话在用法上有不少问题（例如 Match），后期等研究后再更新。但是BrowserRouter无法使用。由于Link、BrowserRouter等都是在react-router-dom里的。但如果另外再安装react-router-dom，又会出现不少问题。最后折中一下，安装了一个4.0.0-alpha版就可以了。这块坑挺多，先完成项目后期再做版本更新的测试调整。`
 ## react-router最新版本更新
->`待加...`
+>`详见下方【react-router新版安装】会有详细说明`
 ##react-redux 之 connect 方法详解
 [链接](https://yq.aliyun.com/articles/59428)
 ## 关于React 中函数式声明组件
->`在[面试中问什么React问题？](https://zhuanlan.zhihu.com/p/28176065)一文中，提到：什么时候应该选择用class实现一个组件，什么时候应该用一个函数实现一个组件？然后，在MovieList.js里是这样声明的：export default function MoviesList({movies}) =>{ ... }，一开始不太明白，后来看了一篇文章[React中函数式声明组件](https://segmentfault.com/a/1190000006180667)，于是就明白了。（注意：源码有误，多了个箭头函数，运行会报错，去掉就好了。）`
+>`在[面试中问什么React问题？](https://zhuanlan.zhihu.com/p/28176065)一文中，提到：什么时候应该选择用class实现一个组件，什么时候应该用一个函数实现一个组件？然后，在MovieList.js里是这样声明的：export default function MoviesList({movies}) =>{ ... }，一开始不太明白，后来看了一篇文章[React中函数式声明组件](https://segmentfault.com/a/1190000006180667)，于是就明白了。（注意：源码有误，运行会报错，改成：const MoviesList = ({movies}) => { ... } export default MoviesList;就好了。）`
 
 ![图片展示](https://sfault-image.b0.upaiyun.com/127/723/127723555-58e86f7592f36_articlex)
 
@@ -123,10 +123,36 @@ bye
 
 ## 【项目原文】
 [链接](https://remzolotykh.net/tag/crud-with-redux/)
-## 新版安装
-`npm install --save react-router react-router-dom`
-### 注：最新版react-router、react-router-dom都需安装，否则：'react-router' does not contain an export named 'Link'.
-## 如果安装react-router-dom v4会有不少问题，具体操作参考
+
+## 【react-router新版安装】
+```javascript
+1.卸载"react-router": "^4.0.0-alpha.6"
+（`npm uninstall --save react-router@4.0.0-alpha.6`）
+2.`npm install --save react-router-dom`
+3.修改 "react-router" 为 "react-router-dom","Match" 换成 "Route"
+例如：
+<Match exactly pattern="/movies" component={MoviesPage} />
+<Match pattern="/movies/new" component={MoviesFormPage} />
+<Match pattern="/movie/:_id" component={MoviesFormPage} />
+替换为：
+<Route exact path="/movies" component={MoviesPage} />
+<Route path="/movies/new" component={MoviesFormPage} />
+<Route path="/movie/:_id" component={MoviesFormPage} />
+此外，match的使用
+this.props.params 换成 const {match} = this.props;  match.params
+还有去掉：activeClassName="active" activeOnlyWhenExact
+const ActiveLink = ({ label,to,activeOnlyWhenExact }) => (
+  <Route path={to} exact={activeOnlyWhenExact} children={({match}) => (
+     <Link className={match ? 'active item' : 'item'} to={to}>{label}</Link>
+  )} />
+);
+<ActiveLink activeOnlyWhenExact to="/" label="首页" />
+<ActiveLink activeOnlyWhenExact to="/movies" label="电影" />
+<ActiveLink activeOnlyWhenExact to="/movies/new" label="新增" />
+```
+### 注：最新版只需安装react-router-dom.
+
+## 如果安装react-router-dom v4中有问题，具体操作参考
 [https://reacttraining.com/react-router](https://reacttraining.com/react-router)
 
 [初探 React Router 4.0](http://blog.csdn.net/sinat_17775997/article/details/69218382)
@@ -135,3 +161,19 @@ bye
 
 ## 拓展阅读
 [链接](https://github.com/wxyyxc1992/Web-Development-And-Engineering-Practices#react)
+## [MLab]
+[云数据库](https://mlab.com)
+```javascript
+操作步骤：
+第一步，注册登陆；
+第二步，Create new；
+第三步，选择亚马逊，sandBox，免费Free；
+第四步，填写数据库名称；
+第五步，确定完成；
+第六步，点击用户 > Add database user > 会生成弹框 > 直接输入保存即可；
+第七步，相关页面数据对接
+const dbUrl = 'mongodb://localhost/crudwithredux';
+改成：
+const dbUrl = 'mongodb://admin:redux2017@ds145263.mlab.com:45263/redux-crud';
+备注：界面好像有更新 不过操作依旧简便。
+```

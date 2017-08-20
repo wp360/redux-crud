@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MovieCard from './MovieCard';
 
-export default function MoviesList({movies,deleteMovie}) {
+const MoviesList = ({movies,deleteMovie}) => {
     const emptyMessage = (
         <p>您的收藏夹里还没有相关电影</p>
     );
@@ -21,3 +21,5 @@ export default function MoviesList({movies,deleteMovie}) {
 MoviesList.propTypes = {
     movies : PropTypes.array.isRequired
 }
+
+export default MoviesList;
