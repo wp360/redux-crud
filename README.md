@@ -141,6 +141,7 @@ bye
 此外，match的使用
 this.props.params 换成 const {match} = this.props;  match.params
 还有去掉：activeClassName="active" activeOnlyWhenExact
+修改为：
 const ActiveLink = ({ label,to,activeOnlyWhenExact }) => (
   <Route path={to} exact={activeOnlyWhenExact} children={({match}) => (
      <Link className={match ? 'active item' : 'item'} to={to}>{label}</Link>
